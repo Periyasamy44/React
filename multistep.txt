@@ -1,0 +1,132 @@
+import React from "react";
+
+import { Steps, Step } from "react-step-builder";
+import Step1 from "./Step1";
+import Step2 from "./Step2";
+import FinalStep from "./FinalStep";
+
+const Navigation = (props) => {
+  return (
+    <div>
+      <button onClick={props.prev}>Global Previous</button>
+      <button onClick={props.next}>Global Next</button>
+    </div>
+  );
+};
+
+function App() {
+  const config = {
+    navigation: {
+      component: Navigation, // a React component with special props provided automatically
+      location: "before" // or after
+    }
+  };
+
+  return (
+    <div className="App">
+      <Steps config={config}>
+        <Step component={Step1} />
+        <Step component={Step2} />
+        <Step component={FinalStep} />
+      </Steps>
+      <h2>Thank you for using react-step-builder.</h2>
+      <h3>GitHub interactions are appreciated.</h3>
+      <b>
+        Samet Mutevelli:
+      </b> <a href="https://github.com/sametweb">GitHub</a> -{" "}
+      <a href="https://linkedin.com/in/samet-mutevelli">LinkedIn</a>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+import React from "react";
+
+function FinalStep(props) {
+  return (
+    <div>
+      <p>Name: {props.state.name}</p>
+      <p>Surname: {props.state.surname}</p>
+      <p>Email: {props.state.email}</p>
+      <p>Phone: {props.state.phone}</p>
+    </div>
+  );
+}
+
+export default FinalStep;
+
+
+import React from "react";
+
+function Step1(props) {
+  return (
+    <div>
+      <p>
+        Name:{" "}
+        <input
+          name="name"
+          value={props.getState("name", "")}
+          onChange={props.handleChange}
+        />
+      </p>
+      <p>
+        Surname:{" "}
+        <input
+          name="surname"
+          value={props.getState("surname", "")}
+          onChange={props.handleChange}
+        />
+      </p>
+      <p>
+        <button disabled={props.isFirst()} onClick={props.prev}>
+          Previous
+        </button>
+        <button disabled={props.isLast()} onClick={props.next}>
+          Next
+        </button>
+      </p>
+    </div>
+  );
+}
+
+export default Step1;
+
+
+import React from "react";
+
+function Step2(props) {
+  return (
+    <div>
+      <p>
+        Email:{" "}
+        <input
+          name="email"
+          value={props.getState("email", "")}
+          onChange={props.handleChange}
+        />
+      </p>
+      <p>
+        Phone:{" "}
+        <input
+          name="phone"
+          value={props.getState("phone", "")}
+          onChange={props.handleChange}
+        />
+      </p>
+      <p>
+        <button onClick={props.prev}>Previous</button>
+        <button onClick={props.next}>Next</button>
+      </p>
+    </div>
+  );
+}
+
+export default Step2;
+
+
+
+
+
